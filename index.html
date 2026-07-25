@@ -756,8 +756,7 @@
         }
 
         function closeOrder() {
-            document.getElementById('orderModal').style.display = 'none';
-        }
+           document.getElementById('creator-name').innerHTML = `<a href="https://Fedorcheb.chebur.shop" target="_blank">${t.creatorName}</a>`;
 
         document.getElementById('modalForm').addEventListener('submit', function(e) {
             e.preventDefault();

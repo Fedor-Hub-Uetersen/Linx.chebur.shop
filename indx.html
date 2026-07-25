@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linx.chebur.shop — Система мониторинга и аксессуары</title>
+    <style>
+        :root {
+            --primary: #28a745;
+            --primary-dark: #1e7e34;
+            --accent: #20c997;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* МЕНЮ НАВИГАЦИИ */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            margin-left: 15px;
+            border-left: 1px solid #dee2e6;
+            padding-left: 15px;
+        }
+
+        .lang-btn {
+            background: #f1f3f5;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--gray);
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* СЛАЙДЕР БАННЕР */
+        .slider-hero {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 50px 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide h1 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .slide p {
+            font-size: 1.05rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .slide .price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a3d9a5;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dot.active {
+            background: var(--primary-dark);
+        }
+
+        /* БЛОК ОБ АВТОРЕ */
+        .creator-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .creator-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            background: #e9ecef;
+            flex-shrink: 0;
+        }
+
+        .creator-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+        }
+
+        .creator-info h3 a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .creator-info h3 a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .creator-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* О системе */
+        .about-section {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .about-section h2 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: var(--dark);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px 40px 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #e9ecef;
+        }
+
+        .product-content {
+            padding: 25px;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .product-footer {
+            padding: 20px 25px;
+            background: #fafbfc;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Видеоплеер */
+        .video-section {
+            background: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 12px;
+            margin: 40px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .video-container {
+            max-width: 700px;
+            margin: 20px auto 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: var(--gray);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .creator-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo" id="logo-text">🌿 Linx.chebur.shop</a>
+            
+            <nav class="nav-menu">
+                <a href="#about" class="nav-link" id="nav-about">О системе</a>
+                <a href="#products" class="nav-link" id="nav-products">Каталог</a>
+                <a href="#video" class="nav-link" id="nav-video">Видео</a>
+                <a href="#creator" class="nav-link" id="nav-creator">Об авторе</a>
+                
+                <div class="lang-switch">
+                    <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+                    <button class="lang-btn" onclick="setLang('ua')">UA</button>
+                    <button class="lang-btn" onclick="setLang('en')">EN</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="slider-hero">
+        <div class="container">
+            <div class="slide active" id="slide-0">
+                <h1 id="s1-title">Linx (Aidex) Сенсор</h1>
+                <p id="s1-desc">Современный датчик непрерывного мониторинга уровня глюкозы (CGM) для вашего комфорта.</p>
+                <div class="price">55 €</div>
+                <button class="btn" onclick="openOrder('Linx (Aidex) Сенсор')" id="btn-buy-1">Купить</button>
+            </div>
+            <div class="slide" id="slide-1">
+                <h1 id="s2-title">Пластыри Linx</h1>
+                <p id="s2-desc">Надежные водостойкие гипоаллергенные тейпы для фиксации датчиков.</p>
+                <div class="price">15 €</div>
+                <button class="btn" onclick="openOrder('Пластыри Linx')" id="btn-buy-2">Купить</button>
+            </div>
+            <div class="slide" id="slide-2">
+                <h1 id="s3-title">QR-код / Техническая часть</h1>
+                <p id="s3-desc">Защищенный медицинский профиль и экстренная связь по QR-коду.</p>
+                <div class="price">15 €</div>
+                <button class="btn" onclick="openOrder('QR-код / Техническая часть')" id="btn-buy-3">Купить</button>
+            </div>
+
+            <div class="slider-dots">
+                <button class="dot active" onclick="currentSlide(0)"></button>
+                <button class="dot" onclick="currentSlide(1)"></button>
+                <button class="dot" onclick="currentSlide(2)"></button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        
+        <!-- БЛОК ОБ АВТОРЕ -->
+        <section class="creator-section" id="creator">
+            <img src="fedor-profile.jpg" alt="Fedor Cheb" class="creator-avatar" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80'">
+            <div class="creator-info">
+                <h3><a href="https://Fedorcheb.chebur.shop" target="_blank" id="creator-name">О создателе проекта — Fedor Cheb</a></h3>
+                <p id="creator-desc">Приветствую! Я создаю эти решения для надежного контроля здоровья и экстренной связи. Вся система проверена на личном опыте, настроена с вниманием к деталям и работает безотказно для вашего комфорта и безопасности.</p>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <h2 id="about-title">О системе Linx</h2>
+            <p id="about-text">Система непрерывного мониторинга глюкозы Linx (Aidex) разработана для того, чтобы сделать контроль уровня сахара простым, точным и непрерывным. Устройство измеряет уровень глюкозы в режиме реального времени, избавляя от необходимости постоянных проколов пальца. В сочетании с нашими специализированными фиксирующими пластырями и защищенным QR-профилем экстренной связи вы получаете полную уверенность и безопасность каждый день.</p>
+        </section>
+
+        <h2 class="section-title" id="products">Каталог товаров</h2>
+        <div class="products-grid">
+            
+            <div class="product-card">
+                <img src="linx-sensor.jpg" alt="Linx Сенсор" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80'">
+                <div class="product-content">
+                    <h3 class="product-title" id="p1-title">Linx (Aidex) Сенсор</h3>
+                    <p class="product-desc" id="p1-desc">Современный датчик непрерывного мониторинга уровня глюкозы (CGM). Высокая точность, передача данных в реальном времени и работа до 14 дней.</p>
+                </div>
+                <div class="product-footer">
+                    <span class="product-price">55 €</span>
+                    <button class="btn" onclick="openOrder('Linx (Aidex) Сенсор')">Заказать</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="linx-patch.jpg" alt="Пластыри Linx" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80'">
+                <div class="product-content">
+                    <h3 class="product-title" id="p2-title">Пластыри Linx</h3>
+                    <p class="product-desc" id="p2-desc">Водостойкие гипоаллергенные тейпы для надежной фиксации датчиков во время спорта, плавания и повседневных дел.</p>
+                </div>
+                <div class="product-footer">
+                    <span class="product-price">15 €</span>
+                    <button class="btn" onclick="openOrder('Пластыри Linx')">Заказать</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="linx-qr.jpg" alt="QR-код" class="product-img" onerror="this.src='https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80'">
+                <div class="product-content">
+                    <h3 class="product-title" id="p3-title">QR-код / Техническая часть</h3>
+                    <p class="product-desc" id="p3-desc">Индивидуальный защищенный медицинский профиль и экстренная связь по QR-коду для быстрого доступа к информации.</p>
+                </div>
+                <div class="product-footer">
+                    <span class="product-price">15 €</span>
+                    <button class="btn" onclick="openOrder('QR-код / Техническая часть')">Заказать</button>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="video-section" id="video">
+            <h2 id="video-title">Видеообзор системы Linx</h2>
+            <p id="video-desc">Посмотрите короткое видео о том, как работает устройство и как правильно его использовать.</p>
+            <div class="video-container">
+                <video controls poster="video-preview.jpg">
+                    <source src="linx-video.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видеоэлемент.
+                </video>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeOrder()">✕</button>
+            <h3 id="modal-heading">Оформить заказ</h3>
+            <form id="modalForm">
+                <div class="form-group">
+                    <label id="label-product">Товар</label>
+                    <input type="text" id="productName" readonly>
+                </div>
+                <div class="form-group">
+                    <label id="label-name">Ваше имя</label>
+                    <input type="text" id="input-name" required placeholder="Введите ваше имя">
+                </div>
+                <div class="form-group">
+                    <label id="label-address">Адрес доставки</label>
+                    <input type="text" id="input-address" required placeholder="Улица, дом, город">
+                </div>
+                <div class="form-group">
+                    <label id="label-phone">Телефон / WhatsApp</label>
+                    <input type="text" id="input-phone" required placeholder="+49...">
+                </div>
+
+                <div style="background: #e8f5e9; padding: 12px 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid var(--primary); text-align: left; font-size: 0.9rem; line-height: 1.5;">
+                    <strong style="color: var(--dark); display: block; margin-bottom: 5px;" id="sepa-title">💳 Банковские реквизиты (SEPA):</strong>
+                    <div><strong>Получатель:</strong> Fedor</div>
+                    <div><strong>IBAN:</strong> DE00 0000 0000 0000 0000 00</div>
+                    <div><strong>BIC:</strong> XXXXXXXXXXX</div>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;" id="btn-submit">Подтвердить заказ</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Linx.chebur.shop. Все права защищены.</p>
+    </footer>
+
+    <script>
+        const MY_WHATSAPP_NUMBER = "4917661566343";
+
+        let slideIndex = 0;
+        let slideTimer = setInterval(autoSlide, 4000);
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function currentSlide(index) {
+            slideIndex = index;
+            showSlide(slideIndex);
+            resetTimer();
+        }
+
+        function autoSlide() {
+            slideIndex++;
+            showSlide(slideIndex);
+        }
+
+        function resetTimer() {
+            clearInterval(slideTimer);
+            slideTimer = setInterval(autoSlide, 4000);
+        }
+
+        const translations = {
+            ru: {
+                navAbout: "О системе",
+                navProducts: "Каталог",
+                navVideo: "Видео",
+                navCreator: "Об авторе",
+                s1Title: "Linx (Aidex) Сенсор",
+                s1Desc: "Современный датчик непрерывного мониторинга уровня глюкозы (CGM) для вашего комфорта.",
+                s2Title: "Пластыри Linx",
+                s2Desc: "Надежные водостойкие гипоаллергенные тейпы для фиксации датчиков.",
+                s3Title: "QR-код / Техническая часть",
+                s3Desc: "Защищенный медицинский профиль и экстренная связь по QR-коду.",
+                btnBuy: "Купить",
+                creatorName: "О создателе проекта — Fedor Cheb",
+                creatorDesc: "Приветствую! Я создаю эти решения для надежного контроля здоровья и экстренной связи. Вся система проверена на личном опыте, настроена с вниманием к деталям и работает безотказно для вашего комфорта и безопасности.",
+                aboutTitle: "О системе Linx",
+                aboutText: "Система непрерывного мониторинга глюкозы Linx (Aidex) разработана для того, чтобы сделать контроль уровня сахара простым, точным и непрерывным. Устройство измеряет уровень глюкозы в режиме реального времени, избавляя от необходимости постоянных проколов пальца. В сочетании с нашими специализированными фиксирующими пластырями и защищенным QR-профилем экстренной связи вы получаете полную уверенность и безопасность каждый день.",
+                productsHeading: "Каталог товаров",
+                p1Title: "Linx (Aidex) Сенсор",
+                p1Desc: "Современный датчик непрерывного мониторинга уровня глюкозы (CGM). Высокая точность, передача данных в реальном времени и работа до 14 дней.",
+                p2Title: "Пластыри Linx",
+                p2Desc: "Водостойкие гипоаллергенные тейпы для надежной фиксации датчиков во время спорта, плавания и повседневных дел.",
+                p3Title: "QR-код / Техническая часть",
+                p3Desc: "Индивидуальный защищенный медицинский профиль и экстренная связь по QR-коду для быстрого доступа к информации.",
+                videoTitle: "Видеообзор системы Linx",
+                videoDesc: "Посмотрите короткое видео о том, как работает устройство и как правильно его использовать.",
+                modalHeading: "Оформить заказ",
+                labelProduct: "Товар",
+                labelName: "Ваше имя",
+                labelAddress: "Адрес доставки",
+                labelPhone: "Телефон / WhatsApp",
+                sepaTitle: "💳 Банковские реквизиты (SEPA):",
+                btnSubmit: "Подтвердить заказ"
+            },
+            ua: {
+                navAbout: "Про систему",
+                navProducts: "Каталог",
+                navVideo: "Відео",
+                navCreator: "Про автора",
+                s1Title: "Linx (Aidex) Сенсор",
+                s1Desc: "Сучасний датчик безперервного моніторингу рівня глюкози (CGM) для вашого комфорту.",
+                s2Title: "Пластирі Linx",
+                s2Desc: "Надійні водостійкі гіпоалергенні тейпи для фіксації датчиків.",
+                s3Title: "QR-код / Технічна частина",
+                s3Desc: "Захищений медичний профіль та екстрений зв'язок за QR-кодом.",
+                btnBuy: "Купити",
+                creatorName: "Про творця проєкту — Fedor Cheb",
+                creatorDesc: "Вітаю! Я створюю ці рішення для надійного контролю здоров'я та екстреного зв'язку. Вся система перевірена на особистому досвіді, налаштована з увагою до деталей та працює безвідмовно для вашого комфорту та безпеки.",
+                aboutTitle: "Про систему Linx",
+                aboutText: "Система безперервного моніторингу глюкози Linx (Aidex) розроблена для того, щоб зробити контроль рівня цукру простим, точним та безперервним. Пристрій вимірює рівень глюкози в реальному часі, позбавляючи від необхідності постійних проколів пальця. У поєднанні з нашими спеціалізованими фіксуючими пластирями та захищеним QR-профілем екстреного зв'язку ви отримуєте повну впевненість і безпеку щодня.",
+                productsHeading: "Каталог товарів",
+                p1Title: "Linx (Aidex) Сенсор",
+                p1Desc: "Сучасний датчик безперервного моніторингу глюкози (CGM). Висока точність, передача даних у реальному часі та робота до 14 днів.",
+                p2Title: "Пластирі Linx",
+                p2Desc: "Водостійкі гіпоалергенні тейпи для надійної фіксації датчиків під час спорту, плавання та повсякденних справ.",
+                p3Title: "QR-код / Технічна частина",
+                p3Desc: "Індивідуальний захищений медичний профіль та екстрений зв'язок за QR-кодом для швидкого доступу до інформації.",
+                videoTitle: "Відеоогляд системи Linx",
+                videoDesc: "Перегляньте коротке відео про те, як працює пристрій та як правильно його використовувати.",
+                modalHeading: "Оформити замовлення",
+                labelProduct: "Товар",
+                labelName: "Ваше ім'я",
+                labelAddress: "Адреса доставки",
+                labelPhone: "Телефон / WhatsApp",
+                sepaTitle: "💳 Банківські реквізити (SEPA):",
+                btnSubmit: "Підтвердити замовлення"
+            },
+            en: {
+                navAbout: "About",
+                navProducts: "Catalog",
+                navVideo: "Video",
+                navCreator: "Creator",
+                s1Title: "Linx (Aidex) Sensor",
+                s1Desc: "Modern continuous glucose monitoring (CGM) sensor for your comfort.",
+                s2Title: "Linx Patches",
+                s2Desc: "Reliable waterproof hypoallergenic tapes for sensor fixation.",
+                s3Title: "QR Code / Technical Part",
+                s3Desc: "Secure medical profile and emergency contact via QR code.",
+                btnBuy: "Buy",
+                creatorName: "About Project Creator — Fedor Cheb",
+                creatorDesc: "Welcome! I create these solutions for reliable health monitoring and emergency communication. The whole system is tested from personal experience and configured for your comfort and safety.",
+                aboutTitle: "About the Linx System",
+                aboutText: "The Linx (Aidex) continuous glucose monitoring system is designed to make sugar control simple, accurate, and continuous. The device measures glucose levels in real time, eliminating the need for constant finger pricks. Combined with our specialized fixation patches and secure emergency QR profile, you get complete confidence and safety every day.",
+                productsHeading: "Product Catalog",
+                p1Title: "Linx (Aidex) Sensor",
+                p1Desc: "Modern continuous glucose monitoring (CGM) sensor. High precision, real-time data transmission, and up to 14 days of operation.",
+                p2Title: "Linx Patches",
+                p2Desc: "Waterproof hypoallergenic tapes for secure sensor fixation during sports, swimming, and daily activities.",
+                p3Title: "QR Code / Technical Part",
+                p3Desc: "Individual secure medical profile and emergency contact via QR code for quick access to information.",
+                videoTitle: "Linx System Video Review",
+                videoDesc: "Watch a short video on how the device works and how to use it properly.",
+                modalHeading: "Place Order",
+                labelProduct: "Product",
+                labelName: "Your Name",
+                labelAddress: "Delivery Address",
+                labelPhone: "Phone / WhatsApp",
+                sepaTitle: "💳 Bank Details (SEPA):",
+                btnSubmit: "Confirm Order"
+            }
+        };
+
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const t = translations[lang];
+            document.getElementById('nav-about').innerText = t.navAbout;
+            document.getElementById('nav-products').innerText = t.navProducts;
+            document.getElementById('nav-video').innerText = t.navVideo;
+            document.getElementById('nav-creator').innerText = t.navCreator;
+
+            document.getElementById('s1-title').innerText = t.s1Title;
+            document.getElementById('s1-desc').innerText = t.s1Desc;
+            document.getElementById('s2-title').innerText = t.s2Title;
+            document.getElementById('s2-desc').innerText = t.s2Desc;
+            document.getElementById('s3-title').innerText = t.s3Title;
+            document.getElementById('s3-desc').innerText = t.s3Desc;
+            
+            document.querySelectorAll('.slide .btn').forEach(btn => btn.innerText = t.btnBuy);
+
+            document.getElementById('creator-name').innerText = t.creatorName;
+            document.getElementById('creator-desc').innerText = t.creatorDesc;
+
+            document.getElementById('about-title').innerText = t.aboutTitle;
+            document.getElementById('about-text').innerText = t.aboutText;
+            document.getElementById('products').innerText = t.productsHeading;
+            
+            document.getElementById('p1-title').innerText = t.p1Title;
+            document.getElementById('p1-desc').innerText = t.p1Desc;
+            document.getElementById('p2-title').innerText = t.p2Title;
+            document.getElementById('p2-desc').innerText = t.p2Desc;
+            document.getElementById('p3-title').innerText = t.p3Title;
+            document.getElementById('p3-desc').innerText = t.p3Desc;
+
+            document.getElementById('video-title').innerText = t.videoTitle;
+            document.getElementById('video-desc').innerText = t.videoDesc;
+
+            document.getElementById('modal-heading').innerText = t.modalHeading;
+            document.getElementById('label-product').innerText = t.labelProduct;
+            document.getElementById('label-name').innerText = t.labelName;
+            document.getElementById('label-address').innerText = t.labelAddress;
+            document.getElementById('label-phone').innerText = t.labelPhone;
+            document.getElementById('sepa-title').innerText = t.sepaTitle;
+            document.getElementById('btn-submit').innerText = t.btnSubmit;
+        }
+
+        function openOrder(product) {
+            document.getElementById('productName').value = product;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeOrder() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        document.getElementById('modalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const product = document.getElementById('productName').value;
+            const name = document.getElementById('input-name').value;
+            const address = document.getElementById('input-address').value;
+            const phone = document.getElementById('input-phone').value;
+
+            const message = `Здравствуйте! Хочу оформить заказ в Linx-Chebur-Shop:%0A` +
+                            `📦 *Товар:* ${product}%0A` +
+                            `👤 *Имя:* ${name}%0A` +
+                            `📍 *Адрес доставки:* ${address}%0A` +
+                            `📞 *Телефон:* ${phone}%0A` +
+                            `💳 *Оплата:* Перевод на банковский счет (SEPA)`;
+
+            const waUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${message}`;
+
+            window.open(waUrl, '_blank');
+            closeOrder();
+        });
+    </script>
+</body>
+</html>

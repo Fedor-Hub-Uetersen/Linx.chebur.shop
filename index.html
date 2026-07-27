@@ -385,7 +385,7 @@
             display: block;
         }
 
-        /* БЛОК СЕРТИФИКАТОВ ПОД ВИДЕО */
+        /* БЛОК СЕРТИФИКАТОВ С УВЕЛИЧЕНИЕМ ПРИ НАВЕДЕНИИ */
         .certificates-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -400,11 +400,13 @@
             border-radius: 10px;
             padding: 15px;
             text-align: center;
-            transition: border-color 0.2s;
+            transition: all 0.3s ease;
         }
 
         .cert-card:hover {
             border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
         .cert-img {
@@ -414,6 +416,11 @@
             border-radius: 6px;
             background: #e9ecef;
             margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover .cert-img {
+            transform: scale(1.03);
         }
 
         .cert-title {
@@ -656,19 +663,25 @@
                 </video>
             </div>
 
-            <!-- БЛОК ДЛЯ СЕРТИФИКАТОВ И ДОКУМЕНТОВ -->
+            <!-- БЛОК СЕРТИФИКАТОВ С КЛИКОМ И УВЕЛИЧЕНИЕМ -->
             <h3 id="cert-section-title" style="margin-top: 35px; color: var(--primary-dark); font-size: 1.3rem;">Сертификаты и документы</h3>
             <div class="certificates-grid">
                 <div class="cert-card">
-                    <img src="cert-1.jpg" alt="Сертификат 1" class="cert-img">
+                    <a href="cert-1.jpg" target="_blank">
+                        <img src="cert-1.jpg" alt="Сертификат 1" class="cert-img">
+                    </a>
                     <div class="cert-title" id="cert-1-text">Сертификат качества</div>
                 </div>
                 <div class="cert-card">
-                    <img src="cert-2.jpg" alt="Сертификат 2" class="cert-img">
+                    <a href="cert-2.jpg" target="_blank">
+                        <img src="cert-2.jpg" alt="Сертификат 2" class="cert-img">
+                    </a>
                     <div class="cert-title" id="cert-2-text">Стандарт соответствия</div>
                 </div>
                 <div class="cert-card">
-                    <img src="cert-3.jpg" alt="Сертификат 3" class="cert-img">
+                    <a href="cert-3.jpg" target="_blank">
+                        <img src="cert-3.jpg" alt="Сертификат 3" class="cert-img">
+                    </a>
                     <div class="cert-title" id="cert-3-text">Инструкция / Лицензия</div>
                 </div>
             </div>
